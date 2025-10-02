@@ -1,3 +1,49 @@
-<div class="container">
-  <h1>{{ title }}</h1>
+<div class="page">
+  <!-- Decorative gradient background glow -->
+  <div class="bg-glow"></div>
+
+  <main class="shell">
+    <header class="header">
+      <h1 class="title">Tic Tac Toe</h1>
+      <p class="subtitle">Ocean Professional</p>
+    </header>
+
+    <section class="status">
+      <div class="pill" [class.win]="winner()" [class.draw]="!winner() && gameOver()">
+        <span class="dot" [class.dot-x]="!winner() && !gameOver() && currentPlayer() === 'X'"
+              [class.dot-o]="!winner() && !gameOver() && currentPlayer() === 'O'"
+              [class.dot-win]="winner()"
+              [class.dot-draw]="!winner() && gameOver()"></span>
+        <span class="text">{{ statusText() }}</span>
+      </div>
+    </section>
+
+    <section class="board" role="grid" aria-label="Tic Tac Toe board">
+      <button
+        *ngFor="let cell of board(); index as i"
+        class="cell"
+        [disabled]="cell !== null || gameOver()"
+        (click)="handleCellClick(i)"
+        [attr.aria-label]="'Cell ' + (i + 1) + ', ' + (cell ? cell : 'empty')"
+        role="gridcell"
+      >
+        <span class="mark" [class.mark-x]="cell === 'X'" [class.mark-o]="cell === 'O'">
+          {{ cell || '' }}
+        </span>
+      </button>
+    </section>
+
+    <section class="actions">
+      <button class="btn primary" (click)="resetGame()" aria-label="Reset game">
+        Reset Game
+      </button>
+      <button class="btn ghost" disabled title="Coming soon">
+        Play vs AI (Soon)
+      </button>
+    </section>
+
+    <footer class="footer">
+      <span>Made with <span class="heart">◆</span> in blue & amber</span>
+    </footer>
+  </main>
 </div>
