@@ -22,19 +22,28 @@ describe('AppComponent', () => {
     expect(heading?.textContent).toContain('Tic Tac Toe');
   });
 
-  it('should start with X as current player', () => {
+  it('should start with X as current player (Knight)', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance as AppComponent;
     expect(app['xIsNext']()).toBeTrue();
     expect(app.currentPlayer()).toBe('X');
+    // status should mention Knight (Player 1)
+    expect(app.statusText()).toContain('Knight (Player 1)');
   });
 
-  it('should allow placing a mark and toggle player', () => {
+  it('should allow placing a mark and toggle player (icons visible)', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance as AppComponent;
+    fixture.detectChanges();
+
     app.handleCellClick(0);
+    fixture.detectChanges();
+
     expect(app['board']()[0]).toBe('X');
     expect(app.currentPlayer()).toBe('O');
+    // Icon mapping
+    expect(app.getIconForMark('X')).toBe('♞');
+    expect(app.getIconForMark('O')).toBe('♛');
   });
 
   it('should detect a winner', () => {
@@ -48,6 +57,8 @@ describe('AppComponent', () => {
     app.handleCellClick(2); // X -> win
     expect(app['winner']()).toBe('X');
     expect(app['gameOver']()).toBeTrue();
+    // status should reflect winner in text
+    expect(app.statusText()).toContain('wins!');
   });
 
   it('should reset the game', () => {

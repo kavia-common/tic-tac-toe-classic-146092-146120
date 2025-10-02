@@ -2,6 +2,14 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
 
+## Tic Tac Toe Icons
+
+The game uses chess icons instead of the classic X/O:
+- Player 1: Knight (♞), primary blue accent
+- Player 2: Queen (♛), amber accent
+
+These appear on the board and in the status text with accessible ARIA labels.
+
 ## Development server
 
 To start a local development server, run:

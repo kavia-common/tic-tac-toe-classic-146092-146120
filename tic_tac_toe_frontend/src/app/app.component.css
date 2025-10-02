@@ -154,7 +154,9 @@
 .mark {
   display: grid;
   place-items: center;
-  font-size: clamp(44px, 8.8vw, 72px);
+  /* Chess icons tend to look better a touch larger with tighter line-height */
+  font-size: clamp(48px, 9.4vw, 76px);
+  line-height: 1;
   font-weight: 800;
   letter-spacing: -2px;
   color: #0f172a;
@@ -162,10 +164,12 @@
   transition: color .2s ease, transform .2s ease, text-shadow .2s ease;
 }
 .mark-x {
+  /* Knight (Player 1) primary accent */
   color: var(--primary);
   text-shadow: 0 6px 24px rgba(37,99,235, .25);
 }
 .mark-o {
+  /* Queen (Player 2) secondary accent */
   color: var(--secondary);
   text-shadow: 0 6px 24px rgba(245,158,11, .25);
 }

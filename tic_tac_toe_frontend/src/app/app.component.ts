@@ -35,17 +35,48 @@ export class AppComponent {
   winner = signal<'X' | 'O' | null>(null);
 
   // Derived/computed values
+  // 'X' = Player 1 (Knight), 'O' = Player 2 (Queen)
   currentPlayer = computed(() => (this.xIsNext() ? 'X' : 'O'));
 
+  /**
+   * statusText
+   * Returns a human-friendly status line using the chess icons for accessibility.
+   * Example: "Knight (Player 1) to move" or "Queen (Player 2) wins!"
+   */
   statusText = computed(() => {
+    const markToRole = (m: 'X' | 'O') => (m === 'X' ? 'Knight (Player 1)' : 'Queen (Player 2)');
     if (this.winner()) {
-      return `Player ${this.winner()} wins!`;
+      return `${markToRole(this.winner()!)} wins!`;
     }
     if (this.gameOver() && !this.winner()) {
       return 'It’s a draw!';
     }
-    return `Player ${this.currentPlayer()}'s turn`;
+    return `${markToRole(this.currentPlayer() as 'X' | 'O')} to move`;
   });
+
+  // PUBLIC_INTERFACE
+  /**
+   * getIconForMark
+   * Returns the proper chess icon for a given mark:
+   *  - 'X' -> Knight ♞
+   *  - 'O' -> Queen ♛
+   * Returns an empty string when mark is null.
+   */
+  getIconForMark(mark: 'X' | 'O' | null): string {
+    if (mark === 'X') return '♞';
+    if (mark === 'O') return '♛';
+    return '';
+  }
+
+  // PUBLIC_INTERFACE
+  /**
+   * narrowMark
+   * Narrows any board cell string value to the strict union 'X' | 'O' | null
+   * for safe template usage with getIconForMark.
+   */
+  narrowMark(value: string | null): 'X' | 'O' | null {
+    return value === 'X' || value === 'O' ? value : null;
+  }
 
   // PUBLIC_INTERFACE
   /**

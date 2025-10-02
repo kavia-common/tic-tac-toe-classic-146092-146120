@@ -14,7 +14,7 @@
               [class.dot-o]="!winner() && !gameOver() && currentPlayer() === 'O'"
               [class.dot-win]="winner()"
               [class.dot-draw]="!winner() && gameOver()"></span>
-        <span class="text">{{ statusText() }}</span>
+        <span class="text" aria-live="polite">{{ statusText() }}</span>
       </div>
     </section>
 
@@ -24,11 +24,11 @@
         class="cell"
         [disabled]="cell !== null || gameOver()"
         (click)="handleCellClick(i)"
-        [attr.aria-label]="'Cell ' + (i + 1) + ', ' + (cell ? cell : 'empty')"
+        [attr.aria-label]="'Cell ' + (i + 1) + ', ' + (cell ? (cell === 'X' ? 'Knight' : 'Queen') : 'empty')"
         role="gridcell"
       >
         <span class="mark" [class.mark-x]="cell === 'X'" [class.mark-o]="cell === 'O'">
-          {{ cell || '' }}
+          {{ getIconForMark(narrowMark(cell)) }}
         </span>
       </button>
     </section>
